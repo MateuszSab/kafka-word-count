@@ -1,6 +1,6 @@
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import java.time.Duration
-import java.util._
+import java.util.Properties
 import scala.jdk.CollectionConverters._
 object Main extends App {
 
@@ -24,7 +24,7 @@ object Main extends App {
     while (true) {
       val records = consumer.poll(Duration.ofMillis(100))
       for (record <- records.asScala) {
-        wordCounter(record.value()).asScala.foreach {
+        wordCounter(record.value()).foreach {
           case (word -> count) => println((s"in a record number: '${record.key()}' '$word' occurs $count times."))
         }
       }
